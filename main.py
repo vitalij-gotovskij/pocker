@@ -53,6 +53,9 @@ class Card():
     def getValue(self):
         return self.__value
 
+    def getSuit(self):
+        return self.__suit
+
     def __str__(self):
         pass
 
@@ -63,21 +66,32 @@ class Card():
         return self.__value.value < card2.getValue().value
 
 
-card1 = Card(CardRank.FIVE,  Suit.SPADES)
-card2 = Card(CardRank.SEVEN, Suit.CLUBS)
-card3 = Card(CardRank.AXE,   Suit.CLUBS)
-card4 = Card(CardRank.FIVE,  Suit.SPADES)
-card5 = Card(CardRank.SEVEN, Suit.CLUBS)
-card6 = Card(CardRank.AXE,   Suit.CLUBS)
-card7 = Card(CardRank.AXE,   Suit.CLUBS)
+def get_straight_flush(cards_on_hand: list):
+    cardsBySuit = {}
+    for card in cards_on_hand:
+        if card.getSuit() not in cardsBySuit:
+            cardsBySuit[card.getSuit()] = []
+        cardsBySuit[card.getSuit()].append(card)
 
-l = [card1, card2, card3, card4, card5, card6, card7]
+    cardsBySuitSorted = dict(sorted(cardsBySuit.items(), key=lambda item: len(item[1]), reverse=True))
+    longest_list = next(iter(cardsBySuitSorted.items()))[1]
+    if not len(longest_list) >= 5:
+        return None
 
-get_pair(l)      -> None or (PAIR, [card1, card2, 9, 10, A])
-get_two_pairs(l) -> None or (TWO_PAIRS, [K, K, 8, 8, 3])
-get_staight(l) ->   None or (HandRank.STRAIGHT, [5, 4, 3, 2, A])
+    longest_list.sort(reverse=True)
+    last_card = None
+    for card in longest_list:
+        if not last_card:
+            last_card = card
+            continue
+        if(last_card.getValue().value - card.getValue().value != 1):
+            return None
+        else:
+            last_card = card
+    else:
+        return (HandRank.STRAIGHT_FLUSH, longest_list[:5])
 
-print(card1 < card3)
+
 
 
 

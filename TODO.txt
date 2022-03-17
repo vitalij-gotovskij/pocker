@@ -4,7 +4,7 @@
 + create enum describing card type (, "♥", , )
 
 - create class Card
-   - implement __str__
+   - implement __str__  # Mindaugas Capas
    + implemnt __eq__
    + implement __lt__
    + getValue
