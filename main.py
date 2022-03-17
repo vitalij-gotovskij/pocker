@@ -29,7 +29,7 @@ class CardRank(Enum):
     JACK  = auto()
     QUEEN = auto()
     KING  = auto()
-    AXE   = auto()
+    ACE   = auto()
 
 
 class HandRank(Enum):
@@ -54,7 +54,7 @@ class Card():
         return self.__value
 
     def __str__(self):
-        pass
+        return f"{self.__value} of {self.__suit.value}"
 
     def __eq__(self, card2):
         return self.__value.value == card2.getValue().value
@@ -93,19 +93,35 @@ class Player(Card):
                 return (HandRank.THREE, new_hand[:5])
         return None
 
+    def get_pair(self, __hand):
+        # search for any card pair that has a duplicate, sort rest of the cards
+        # return pair with largest 3 values of cards left
+        seen_cards = []
+        pair_cards = []
+        for hand_card in __hand:
+            for seen_card in seen_cards:
+                if hand_card == seen_card:
+                    pair_cards.extend([hand_card, seen_card])
+                    left_cards = [x for x in __hand if x not in pair_cards]
+                    left_cards.sort()
+                    return_hand = pair_cards + left_cards
+                    return HandRank.PAIR, return_hand[0:5]
+            seen_cards.append(hand_card)
+        return None
 
 
 card1 = Card(CardRank.FIVE, Suit.SPADES)
-card2 = Card(CardRank.SEVEN, Suit.CLUBS)
-card3 = Card(CardRank.AXE, Suit.CLUBS)
-card4 = Card(CardRank.FIVE, Suit.SPADES)
-card5 = Card(CardRank.SEVEN, Suit.CLUBS)
-card6 = Card(CardRank.AXE, Suit.CLUBS)
-card7 = Card(CardRank.AXE, Suit.CLUBS)
+card2 = Card(CardRank.FOUR, Suit.HEARTS)
+card3 = Card(CardRank.ACE, Suit.CLUBS)
+card4 = Card(CardRank.EIGHT, Suit.SPADES)
+card5 = Card(CardRank.EIGHT, Suit.SPADES)
+card6 = Card(CardRank.NINE, Suit.CLUBS)
+card7 = Card(CardRank.SEVEN, Suit.CLUBS)
 
 l = [card1, card2, card3, card4, card5, card6, card7]
-print(l)
-print(card1 < card3)
+# print(l)
+# print(card1 < card3)
+
 
 
 
