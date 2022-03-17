@@ -80,6 +80,15 @@ class Player(Card):
         for card in self.__hand:
             hand_str.append(card)
         print(hand_str)
+        
+    def __get_three(hand):
+        value_list = []
+        for i in hand:
+            value_list.append(i.getValue().value)
+            res = value_list.count(i.getValue().value)
+            if res == 3:
+             return True
+        return None
 
 
 
