@@ -66,6 +66,33 @@ class Card():
         return self.__value.value < card2.getValue().value
 
 
+class Player(Card):
+    def __init__(self, name):
+        self.__name = name
+        self.__hand = []
+
+    def getName(self):
+        return self.__name
+
+    def receiveCard(self, new_card):
+        if isinstance(new_card, Card):
+            self.__hand.append(new_card)
+
+    def showHand(self):
+        hand_str = []
+        for card in self.__hand:
+            hand_str.append(card)
+        print(hand_str)
+
+
+
+card1 = Card(CardRank.FIVE, Suit.SPADES)
+card2 = Card(CardRank.SEVEN, Suit.CLUBS)
+card3 = Card(CardRank.AXE, Suit.CLUBS)
+card4 = Card(CardRank.FIVE, Suit.SPADES)
+card5 = Card(CardRank.SEVEN, Suit.CLUBS)
+card6 = Card(CardRank.AXE, Suit.CLUBS)
+card7 = Card(CardRank.AXE, Suit.CLUBS)
 def get_straight_flush(cards_on_hand: list):
     cardsBySuit = {}
     for card in cards_on_hand:
@@ -91,6 +118,12 @@ def get_straight_flush(cards_on_hand: list):
     else:
         return (HandRank.STRAIGHT_FLUSH, longest_list[:5])
 
+    cardsBySuitSorted = dict(sorted(cardsBySuit.items(), key=lambda item: len(item[1]), reverse=True))
+    longest_list = next(iter(cardsBySuitSorted.items()))[1]
+    if not len(longest_list) >= 5:
+        return None
+print(l)
+print(card1 < card3)
 
 
 
