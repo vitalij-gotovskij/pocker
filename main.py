@@ -81,13 +81,16 @@ class Player(Card):
             hand_str.append(card)
         print(hand_str)
         
-    def __get_three(hand):
+    def get_three(hand):
         value_list = []
         for i in hand:
             value_list.append(i.getValue().value)
             res = value_list.count(i.getValue().value)
             if res == 3:
-             return True
+                three_cards = [x for x in value_list if value_list.count(x) == 3]
+                other_cards = [x for x in value_list if x not in three_cards]
+                new_hand = three_cards+sorted(other_cards, reverse=True)
+                return (HandRank.THREE, new_hand[:5])
         return None
 
 
