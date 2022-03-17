@@ -81,6 +81,22 @@ class Player(Card):
             hand_str.append(card)
         print(hand_str)
 
+    def get_pair(self, __hand):
+        # search for any card pair that has a duplicate, sort rest of the cards
+        # return pair with largest 3 values of cards left
+        seen_cards = []
+        pair_cards = []
+        for hand_card in __hand:
+            for seen_card in seen_cards:
+                if hand_card == seen_card:
+                    pair_cards.extend([hand_card, seen_card])
+                    left_cards = [x for x in __hand if x not in pair_cards]
+                    left_cards.sort()
+                    return_hand = pair_cards + left_cards
+                    return HandRank.PAIR, return_hand[0:5]
+            seen_cards.append(hand_card)
+        return None
+
 
 card1 = Card(CardRank.FIVE, Suit.SPADES)
 card2 = Card(CardRank.FOUR, Suit.HEARTS)
