@@ -63,21 +63,38 @@ class Card():
         return self.__value.value < card2.getValue().value
 
 
-card1 = Card(CardRank.FIVE,  Suit.SPADES)
+class Player(Card):
+    def __init__(self, name):
+        self.__name = name
+        self.__hand = []
+
+    def getName(self):
+        return self.__name
+
+    def receiveCard(self, new_card):
+        if isinstance(new_card, Card):
+            self.__hand.append(new_card)
+
+    def showHand(self):
+        hand_str = []
+        for card in self.__hand:
+            hand_str.append(card)
+        print(hand_str)
+
+
+
+card1 = Card(CardRank.FIVE, Suit.SPADES)
 card2 = Card(CardRank.SEVEN, Suit.CLUBS)
-card3 = Card(CardRank.AXE,   Suit.CLUBS)
-card4 = Card(CardRank.FIVE,  Suit.SPADES)
+card3 = Card(CardRank.AXE, Suit.CLUBS)
+card4 = Card(CardRank.FIVE, Suit.SPADES)
 card5 = Card(CardRank.SEVEN, Suit.CLUBS)
-card6 = Card(CardRank.AXE,   Suit.CLUBS)
-card7 = Card(CardRank.AXE,   Suit.CLUBS)
+card6 = Card(CardRank.AXE, Suit.CLUBS)
+card7 = Card(CardRank.AXE, Suit.CLUBS)
 
 l = [card1, card2, card3, card4, card5, card6, card7]
-
-get_pair(l)      -> None or (PAIR, [card1, card2, 9, 10, A])
-get_two_pairs(l) -> None or (TWO_PAIRS, [K, K, 8, 8, 3])
-get_staight(l) ->   None or (HandRank.STRAIGHT, [5, 4, 3, 2, A])
-
+print(l)
 print(card1 < card3)
+
 
 
 
