@@ -93,7 +93,6 @@ def get_pair(hand):
                 left_cards = [x for x in hand if x not in pair_cards]
                 left_cards.sort()
                 return_hand = pair_cards + left_cards
-                return return_hand[0:5]
         seen_cards.append(hand_card)
     return None
 
@@ -109,8 +108,6 @@ l = [card1, card2, card3, card4, card5, card6, card7]
 # print(l)
 # print(card1 < card3)
 hand = get_pair(l)
-for item in hand:
-    print(item)
 
 
 
