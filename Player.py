@@ -135,7 +135,7 @@ class Player():
 
     def __get_highest_card(self, hand):
         hand.sort(reverse=True)
-        return HandRank.HIGHEST_CARD, hand
+        return HandRank.HIGHEST_CARD, hand[0:6]
 
 
     def getHighestRank(self):
