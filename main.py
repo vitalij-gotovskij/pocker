@@ -85,35 +85,6 @@ class Player(Card):
         print(hand_str)
 
 
-def get_straight_flush(cards_on_hand: list):
-    cardsBySuit = {}
-    for card in cards_on_hand:
-        if card.getSuit() not in cardsBySuit:
-            cardsBySuit[card.getSuit()] = []
-        cardsBySuit[card.getSuit()].append(card)
-
-    cardsBySuitSorted = dict(sorted(cardsBySuit.items(), key=lambda item: len(item[1]), reverse=True))
-    longest_list = next(iter(cardsBySuitSorted.items()))[1]
-    if not len(longest_list) >= 5:
-        return None
-
-    longest_list.sort(reverse=True)
-    last_card = None
-    for card in longest_list:
-        if not last_card:
-            last_card = card
-            continue
-        if(last_card.getValue().value - card.getValue().value != 1):
-            return None
-        else:
-            last_card = card
-    else:
-        return (HandRank.STRAIGHT_FLUSH, longest_list[:5])
-
-    cardsBySuitSorted = dict(sorted(cardsBySuit.items(), key=lambda item: len(item[1]), reverse=True))
-    longest_list = next(iter(cardsBySuitSorted.items()))[1]
-    if not len(longest_list) >= 5:
-        return None
 
 
 
