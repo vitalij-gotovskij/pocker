@@ -34,12 +34,12 @@
         + get_pair()             # Mindaugas Capas
         - get_two_pairs()        # Mindaugas Puzinauskas
         + get_three()            # Benas Jasikonis
-        - get_straight()         # Romuald Čaplinskij
+        + get_straight()         # Romuald Čaplinskij
         + get_flush()            # Žydrūnas Puskunigis
         -? get_full_house()       # Algimantas Neniškis
         -? get_four()             # Rokas Prabušas
-        -? get_straight_flush()   # Vitalij
-        +- get_royal_flush()      # Žydrūnas Puskunigis
+        + get_straight_flush()   # Vitalij
+        + get_royal_flush()      # Žydrūnas Puskunigis
 
 
 - create game logic (as Class??)
