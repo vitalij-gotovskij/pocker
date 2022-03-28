@@ -112,7 +112,7 @@ class Player(Card):
             seen_cards.append(hand_card)
         return None
 
-    def get_flush(l):
+    def get_flush(self, l):
         list_of_hearts = [card for card in l if card.getSuit().name == "HEARTS"]
         list_of_diamonds = [card for card in l if card.getSuit().name == "DIAMONDS"]
         list_of_clubs = [card for card in l if card.getSuit().name == "CLUBS"]
@@ -123,7 +123,7 @@ class Player(Card):
                 return HandRank.FLUSH, cards.sort(reverse=True)
         return None
 
-    def get_royal_flush(l):
+    def get_royal_flush(self, l):
         list_of_hearts = [card for card in l if card.getSuit().name == "HEARTS"]
         list_of_diamonds = [card for card in l if card.getSuit().name == "DIAMONDS"]
         list_of_clubs = [card for card in l if card.getSuit().name == "CLUBS"]
@@ -140,36 +140,79 @@ class Player(Card):
         return None
 
 
+    def get_straight_flush(self, cards_on_hand: list):
+        cardsBySuit = {}
+        for card in cards_on_hand:
+            if card.getSuit() not in cardsBySuit:
+                cardsBySuit[card.getSuit()] = []
+            cardsBySuit[card.getSuit()].append(card)
 
-def get_straight_flush(cards_on_hand: list):
-    cardsBySuit = {}
-    for card in cards_on_hand:
-        if card.getSuit() not in cardsBySuit:
-            cardsBySuit[card.getSuit()] = []
-        cardsBySuit[card.getSuit()].append(card)
-
-    cardsBySuitSorted = dict(sorted(cardsBySuit.items(), key=lambda item: len(item[1]), reverse=True))
-    longest_list = next(iter(cardsBySuitSorted.items()))[1]
-    if not len(longest_list) >= 5:
-        return None
-
-    longest_list.sort(reverse=True)
-    last_card = None
-    for card in longest_list:
-        if not last_card:
-            last_card = card
-            continue
-        if(last_card.getValue().value - card.getValue().value != 1):
+        cardsBySuitSorted = dict(sorted(cardsBySuit.items(), key=lambda item: len(item[1]), reverse=True))
+        longest_list = next(iter(cardsBySuitSorted.items()))[1]
+        if not len(longest_list) >= 5:
             return None
-        else:
-            last_card = card
-    else:
-        return (HandRank.STRAIGHT_FLUSH, longest_list[:5])
 
-    cardsBySuitSorted = dict(sorted(cardsBySuit.items(), key=lambda item: len(item[1]), reverse=True))
-    longest_list = next(iter(cardsBySuitSorted.items()))[1]
-    if not len(longest_list) >= 5:
-        return None
+        longest_list.sort(reverse=True)
+        last_card = None
+        for card in longest_list:
+            if not last_card:
+                last_card = card
+                continue
+            if(last_card.getValue().value - card.getValue().value != 1):
+                return None
+            else:
+                last_card = card
+        else:
+            return (HandRank.STRAIGHT_FLUSH, longest_list[:5])
+
+        cardsBySuitSorted = dict(sorted(cardsBySuit.items(), key=lambda item: len(item[1]), reverse=True))
+        longest_list = next(iter(cardsBySuitSorted.items()))[1]
+        if not len(longest_list) >= 5:
+            return None
+
+    def getHighestRank(self):
+        ret = None
+        ret = self.__get_royal_flush(self.__hand)
+        if ret:
+            return ret
+
+        ret = self.__get_straight_flush(self.__hand)
+        if ret:
+            return ret
+
+        ret = self.__get_four(self.__hand)
+        if ret:
+            return ret
+
+        ret = self.__get_full_house(self.__hand)
+        if ret:
+            return ret
+
+        ret = self.__get_flush(self.__hand)
+        if ret:
+            return ret
+
+        ret = self.__get_straight(self.__hand)
+        if ret:
+            return ret
+
+        ret = self.__get_three(self.__hand)
+        if ret:
+            return ret
+
+        ret = self.__get_two_pairs(self.__hand)
+        if ret:
+            return ret
+
+        ret = self.__get_pair(self.__hand)
+        if ret:
+            return ret
+
+        return self.__get_highest_card(self.__hand)
+
+
+
+
 
 
 
