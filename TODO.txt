@@ -4,7 +4,7 @@
 + create enum describing card type (, "♥", , )
 
 - create class Card
-   - implement __str__  # Mindaugas Capas
+   + implement __str__  # Mindaugas Capas
    + implemnt __eq__
    + implement __lt__
    + getValue
@@ -21,25 +21,25 @@
 + create enum describing rank names: ONE, PAIR, TWO_PAIRS, THREE_CARDS....
 
 
-- create class Player/Hand                        # Dainius
-     - stores his seven cards                     # Dainius
-     - has name (set at __init__ and is private)  # Dainius
-     - getName() returns player's name            # Dainius
-     - receiveCard                                # Dainius
-     - showHand                                   # Dainius
++ create class Player/Hand                        # Dainius
+     + stores his seven cards                     # Dainius
+     + has name (set at __init__ and is private)  # Dainius
+     + getName() returns player's name            # Dainius
+     + receiveCard                                # Dainius
+     + showHand                                   # Dainius
 
 
      - getHighestRank()
         - get_highest_card()
-        - get_pair()             # Mindaugas Capas
+        + get_pair()             # Mindaugas Capas
         - get_two_pairs()        # Mindaugas Puzinauskas
-        - get_three()            # Benas Jasikonis
+        + get_three()            # Benas Jasikonis
         - get_straight()         # Romuald Čaplinskij
-        - get_flush()            # Žydrūnas Puskunigis
-        - get_full_house()       # Algimantas Neniškis
-        - get_four()             # Rokas Prabušas
-        - get_straight_flush()   # Vitalij
-        - get_royal_flush()      # Žydrūnas Puskunigis
+        + get_flush()            # Žydrūnas Puskunigis
+        -? get_full_house()       # Algimantas Neniškis
+        -? get_four()             # Rokas Prabušas
+        -? get_straight_flush()   # Vitalij
+        +- get_royal_flush()      # Žydrūnas Puskunigis
 
 
 - create game logic (as Class??)
