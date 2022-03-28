@@ -84,7 +84,7 @@ class Player(Card):
             hand_str.append(card)
         print(hand_str)
         
-    def __get_three(hand):
+    def __get_three(self, hand):
         value_list = []
         for i in hand:
             value_list.append(i.getValue().value)
@@ -96,7 +96,7 @@ class Player(Card):
                 return (HandRank.THREE, new_hand[:5])
         return None
 
-    def get_pair(self, __hand):
+    def __get_pair(self, __hand):
         # search for any card pair that has a duplicate, sort rest of the cards
         # return pair with largest 3 values of cards left
         seen_cards = []
@@ -112,7 +112,7 @@ class Player(Card):
             seen_cards.append(hand_card)
         return None
 
-    def get_flush(self, l):
+    def __get_flush(self, l):
         list_of_hearts = [card for card in l if card.getSuit().name == "HEARTS"]
         list_of_diamonds = [card for card in l if card.getSuit().name == "DIAMONDS"]
         list_of_clubs = [card for card in l if card.getSuit().name == "CLUBS"]
@@ -123,7 +123,7 @@ class Player(Card):
                 return HandRank.FLUSH, cards.sort(reverse=True)
         return None
 
-    def get_royal_flush(self, l):
+    def __get_royal_flush(self, l):
         list_of_hearts = [card for card in l if card.getSuit().name == "HEARTS"]
         list_of_diamonds = [card for card in l if card.getSuit().name == "DIAMONDS"]
         list_of_clubs = [card for card in l if card.getSuit().name == "CLUBS"]
@@ -140,8 +140,11 @@ class Player(Card):
         return None
 
 
-    def get_straight_flush(self, cards_on_hand: list):
+    def __get_straight_flush(self, cards_on_hand: list):
         cardsBySuit = {}
+        if len(cards_on_hand) < 7:
+            raise BaseException("There should be 7 cards on hand!")
+
         for card in cards_on_hand:
             if card.getSuit() not in cardsBySuit:
                 cardsBySuit[card.getSuit()] = []
@@ -180,29 +183,29 @@ class Player(Card):
         if ret:
             return ret
 
-        ret = self.__get_four(self.__hand)
-        if ret:
-            return ret
+        # ret = self.__get_four(self.__hand)  # TODO: implement this
+        # if ret:
+        #     return ret
 
-        ret = self.__get_full_house(self.__hand)
-        if ret:
-            return ret
+        # ret = self.__get_full_house(self.__hand)  # TODO: implement this
+        # if ret:
+        #     return ret
 
         ret = self.__get_flush(self.__hand)
         if ret:
             return ret
 
-        ret = self.__get_straight(self.__hand)
-        if ret:
-            return ret
+        # ret = self.__get_straight(self.__hand)  # TODO: implement this
+        # if ret:
+        #     return ret
 
         ret = self.__get_three(self.__hand)
         if ret:
             return ret
 
-        ret = self.__get_two_pairs(self.__hand)
-        if ret:
-            return ret
+        # ret = self.__get_two_pairs(self.__hand)  # TODO: implement this
+        # if ret:
+        #     return ret
 
         ret = self.__get_pair(self.__hand)
         if ret:
@@ -211,19 +214,30 @@ class Player(Card):
         return self.__get_highest_card(self.__hand)
 
 
+card1 = Card(CardRank.FIVE, Suit.SPADES)
+card2 = Card(CardRank.FOUR, Suit.HEARTS)
+card3 = Card(CardRank.ACE, Suit.CLUBS)
+card4 = Card(CardRank.EIGHT, Suit.SPADES)
+card5 = Card(CardRank.EIGHT, Suit.CLUBS)
+card6 = Card(CardRank.NINE, Suit.CLUBS)
+card7 = Card(CardRank.SEVEN, Suit.CLUBS)
 
 
+player = Player("Name")
+player.receiveCard(card1)
+player.receiveCard(card2)
+player.receiveCard(card3)
+player.receiveCard(card4)
+player.receiveCard(card5)
+player.receiveCard(card6)
+player.receiveCard(card7)
 
+rank = player.getHighestRank()
+print(rank)
 
 
 #
-# card1 = Card(CardRank.FIVE, Suit.SPADES)
-# card2 = Card(CardRank.FOUR, Suit.HEARTS)
-# card3 = Card(CardRank.ACE, Suit.CLUBS)
-# card4 = Card(CardRank.EIGHT, Suit.SPADES)
-# card5 = Card(CardRank.EIGHT, Suit.SPADES)
-# card6 = Card(CardRank.NINE, Suit.CLUBS)
-# card7 = Card(CardRank.SEVEN, Suit.CLUBS)
+
 #
 # l = [card1, card2, card3, card4, card5, card6, card7]
 # # print(l)

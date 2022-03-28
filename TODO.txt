@@ -29,7 +29,7 @@
      + showHand                                   # Dainius
 
 
-     - getHighestRank()
+     + getHighestRank()
         - get_highest_card()
         + get_pair()             # Mindaugas Capas
         - get_two_pairs()        # Mindaugas Puzinauskas
