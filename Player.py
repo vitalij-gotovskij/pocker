@@ -60,6 +60,31 @@ class Player():
             seen_cards.append(hand_card)
         return None
 
+    def __get_two_pairs(self, hnd):
+        values = []
+        unique = []
+        pair = 0
+        paired_crds = []
+        notpaired_crds = []
+        for value in hnd:
+            values.append(value.getValue().value)
+            if value.getValue().value not in values:
+                unique.append(value.getValue().value)
+        for a in unique:
+            if values.count(a) == 2:
+                pair += 1
+                for b in hnd:
+                    if a == b.getValue().value:
+                        paired_crds.append(b)
+                    else:
+                        notpaired_crds.append(b)
+        if pair == 2:
+            returnhand = paired_crds + notpaired_crds
+            return HandRank.TWO_PAIRS, returnhand[0:5]
+        else:
+            return None
+
+
     def __get_flush(self, l):
         list_of_hearts = [card for card in l if card.getSuit().name == "HEARTS"]
         list_of_diamonds = [card for card in l if card.getSuit().name == "DIAMONDS"]
@@ -70,6 +95,7 @@ class Player():
             if len(cards) == 5:
                 return HandRank.FLUSH, cards.sort(reverse=True)
         return None
+
 
     def __get_royal_flush(self, l):
         list_of_hearts = [card for card in l if card.getSuit().name == "HEARTS"]
@@ -86,6 +112,7 @@ class Player():
                 if cheking == ["ACE", "KING", "QUEEN", "JACK", "TEN"]:
                     return HandRank.ROYAL_FLUSH, suited
         return None
+
 
     def __get_straight_flush(self, cards_on_hand: list):
         cardsBySuit = {}
@@ -119,6 +146,7 @@ class Player():
         longest_list = next(iter(cardsBySuitSorted.items()))[1]
         if not len(longest_list) >= 5:
             return None
+
 
     def __get_straight(self, hand):
         # l = hand
@@ -160,7 +188,7 @@ class Player():
         if ret:
             return ret
 
-        ret = self.__get_straight(self.__hand)  # TODO: implement this
+        ret = self.__get_straight(self.__hand)
         if ret:
             return ret
 
@@ -168,9 +196,9 @@ class Player():
         if ret:
             return ret
 
-        # ret = self.__get_two_pairs(self.__hand)  # TODO: implement this
-        # if ret:
-        #     return ret
+        ret = self.__get_two_pairs(self.__hand)
+        if ret:
+            return ret
 
         ret = self.__get_pair(self.__hand)
         if ret:
